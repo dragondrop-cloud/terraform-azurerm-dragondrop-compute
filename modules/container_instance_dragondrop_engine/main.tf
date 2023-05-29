@@ -29,7 +29,7 @@ resource "azurerm_container_group" "azure_container_instance" {
   }
 
   identity {
-    type = "UserAssigned"
+    type = "SystemAssigned"
   }
 
   tags = merge(
