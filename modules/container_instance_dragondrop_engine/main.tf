@@ -9,7 +9,7 @@ resource "azurerm_container_group" "azure_container_instance" {
     cpu            = var.container_cpu
     image          = var.dragondrop_engine_image
     memory         = var.container_memory
-    name           = "dragondrop_engine_container_image"
+    name           = "dragondrop-engine-container-instance"
 
     secure_environment_variables = {
       "DRAGONDROP_WORKSPACETODIRECTORY"      = "placeholder"
