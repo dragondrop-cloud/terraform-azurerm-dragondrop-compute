@@ -3,13 +3,14 @@ resource "azurerm_container_group" "azure_container_instance" {
   name                = "dragondrop_engine_container"
   os_type             = "Linux"
   resource_group_name = var.resource_group_name
+  restart_policy = "Never"
 
   container {
     cpu            = var.container_cpu
     image          = var.dragondrop_engine_image
     memory         = var.container_memory
     name           = "dragondrop_engine_container_image"
-    restart_policy = "Never"
+
     secure_environment_variables = {
       "DRAGONDROP_WORKSPACETODIRECTORY"      = "placeholder"
       "DRAGONDROP_WORKSPACECLOUDCREDENTIALS" = "placeholder"
