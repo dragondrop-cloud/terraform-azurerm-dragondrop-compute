@@ -1,13 +1,23 @@
+variable "container_cpu" {
+  description = "The number of CPU cores to allocate to the dragondrop container"
+  type        = number
+  default     = 2
+}
+
+variable "container_memory" {
+  description = "The amount of memory to allocate to the dragondrop container"
+  type        = number
+  default     = 8
+}
+
 variable "dragondrop_api" {
-  description = "URL for the dragondrop API, used for controlling allowed origins on the Lambda URL."
+  description = "URL for the dragondrop API."
   type        = string
-  default     = "https://api.dragondrop.cloud"
 }
 
 variable "dragondrop_engine_image" {
   description = "The Docker image to use for the dragondrop engine"
   type        = string
-  default     = "us-east4-docker.pkg.dev/dragondrop-prod/dragondrop-engine/engine:latest"
 }
 
 variable "resource_group_name" {
