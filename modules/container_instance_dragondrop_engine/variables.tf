@@ -20,6 +20,11 @@ variable "dragondrop_engine_image" {
   type        = string
 }
 
+variable "env_division_cloud_credentials" {
+  description = "The environment containing a map between cloud divisions and the corresponding credential set. For formatting information, see https://docs.dragondrop.cloud/product-docs/deploying-to-your-cloud/environment-variables#scanning-your-cloud-env-vars"
+  type        = string
+}
+
 variable "resource_group_name" {
   description = "The name of the resource group in which to create the resources"
   type        = string
