@@ -42,6 +42,16 @@ resource "azurerm_container_app" "example" {
       image  = var.dragondrop_https_trigger_container_image
 
       env {
+        name = "RESOURCE_GROUP"
+        value = var.resource_group_name
+      }
+
+      env {
+        name = "CONTAINER_GROUP_ID"
+        value = var.container_app_identity_id
+      }
+
+      env {
         name         = "DRAGONDROP_DIVISIONCLOUDCREDENTIALS"
         secure_value = var.division_cloud_credentials_secret_id
       }
