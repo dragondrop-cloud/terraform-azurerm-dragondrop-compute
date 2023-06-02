@@ -18,6 +18,13 @@ resource "azurerm_container_group" "azure_container_instance" {
     }
   }
 
+  diagnostics {
+    log_analytics {
+      workspace_id  = var.log_analytics_workspace_id
+      workspace_key = var.log_analytics_workspace_key
+    }
+  }
+
   identity {
     type = "SystemAssigned"
   }

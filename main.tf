@@ -9,9 +9,10 @@ module "log_analytics_workspace" {
 module "container_instance_dragondrop_engine" {
   source = "./modules/container_instance_dragondrop_engine"
 
-  dragondrop_api             = var.dragondrop_api
-  dragondrop_engine_image    = var.dragondrop_engine_image
-  log_analytics_workspace_id = module.log_analytics_workspace.log_analytics_workspace_id
+  dragondrop_api              = var.dragondrop_api
+  dragondrop_engine_image     = var.dragondrop_engine_image
+  log_analytics_workspace_id  = module.log_analytics_workspace.log_analytics_workspace_id
+  log_analytics_workspace_key = module.log_analytics_workspace.log_analytics_workspace_key
 
   resource_group_name = var.resource_group_name
   location            = var.location
