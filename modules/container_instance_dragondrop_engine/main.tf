@@ -16,11 +16,6 @@ resource "azurerm_container_group" "azure_container_instance" {
       port     = 80
       protocol = "TCP"
     }
-
-    secure_environment_variables = {
-      "DRAGONDROP_DIVISIONCLOUDCREDENTIALS" = var.env_division_cloud_credentials
-    }
-
   }
 
   identity {
