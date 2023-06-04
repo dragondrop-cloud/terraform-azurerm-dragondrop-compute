@@ -8,10 +8,6 @@ variable "secret_name" {
   type        = string
 }
 
-variable "principal_id" {
-  description = "Principal to be granted read access to the secret"
-}
-
 variable "tags" {
   description = "A mapping of tags to assign to append to all created resources."
   type        = map(string)

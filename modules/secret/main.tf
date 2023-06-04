@@ -8,9 +8,3 @@ resource "azurerm_key_vault_secret" "secret" {
     var.tags,
   )
 }
-
-resource "azurerm_role_assignment" "container_app" {
-  scope                = azurerm_key_vault_secret.secret.id
-  role_definition_name = "Key Vault Secrets User"
-  principal_id         = var.principal_id
-}

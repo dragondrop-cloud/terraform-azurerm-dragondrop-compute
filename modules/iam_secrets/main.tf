@@ -6,6 +6,11 @@ resource "azurerm_user_assigned_identity" "container_app" {
   location            = var.location
   name                = "dragondrop-container-app"
   resource_group_name = var.resource_group_name
+
+  tags = merge(
+    { origin = "dragondrop-compute-module" },
+    var.tags,
+  )
 }
 
 resource "azurerm_role_definition" "example" {
@@ -29,7 +34,7 @@ resource "azurerm_role_assignment" "container_app" {
   principal_id       = azurerm_user_assigned_identity.container_app.principal_id
 }
 
-# Creating secrets and adding access permission to the managed role
+# Creating the key vault and adding access permission to access/update the secrets
 resource "azurerm_key_vault" "secrets" {
   name                = "dragondrop-secrets"
   location            = var.location
@@ -37,39 +42,76 @@ resource "azurerm_key_vault" "secrets" {
   sku_name            = "standard"
   tenant_id           = data.azurerm_client_config.current.tenant_id
 
-  access_policy {
-    tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = data.azurerm_client_config.current.object_id
-
-    key_permissions = [
-      "Create",
-      "Get",
-      "List",
-      "Update",
-    ]
-
-    secret_permissions = [
-      "Set",
-      "Get",
-      "List",
-    ]
-  }
-
-
   tags = merge(
     { origin = "dragondrop-compute-module" },
     var.tags,
   )
 }
 
+## Permissions for managed identity to access the key vault
+resource "azurerm_key_vault_access_policy" "user_assigned_identity" {
+  key_vault_id = azurerm_key_vault.secrets.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = azurerm_user_assigned_identity.container_app.principal_id
+
+  key_permissions = [
+    "Get",
+    "List",
+  ]
+
+  secret_permissions = [
+    "Get",
+    "List",
+  ]
+}
+
+## Permissions for terraform client to access the key vault
+resource "azurerm_key_vault_access_policy" "terraform_client" {
+  key_vault_id = azurerm_key_vault.secrets.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = data.azurerm_client_config.current.object_id
+
+  key_permissions = [
+    "Create",
+    "Get",
+    "List",
+    "Update",
+  ]
+
+  secret_permissions = [
+    "Set",
+    "Get",
+    "List",
+  ]
+}
+
+## Permissions for terraform client to access the key vault
+resource "azurerm_key_vault_access_policy" "console_user" {
+  key_vault_id = azurerm_key_vault.secrets.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = var.user_email_to_access_key_vault
+
+  key_permissions = [
+    "Create",
+    "Get",
+    "List",
+    "Update",
+  ]
+
+  secret_permissions = [
+    "Set",
+    "Get",
+    "List",
+  ]
+}
+
+# Adding secrets to the key vault
 module "division_cloud_credentials" {
   source = "../secret/"
 
   key_vault_id = azurerm_key_vault.secrets.id
   secret_name  = "DIVISIONCLOUDCREDENTIALS"
-  principal_id = azurerm_user_assigned_identity.container_app.principal_id
-
-  tags = var.tags
+  tags         = var.tags
 }
 
 module "infracost_api_token" {
@@ -77,9 +119,7 @@ module "infracost_api_token" {
 
   key_vault_id = azurerm_key_vault.secrets.id
   secret_name  = "INFRACOSTAPITOKEN"
-  principal_id = azurerm_user_assigned_identity.container_app.principal_id
-
-  tags = var.tags
+  tags         = var.tags
 }
 
 module "job_token" {
@@ -87,9 +127,7 @@ module "job_token" {
 
   key_vault_id = azurerm_key_vault.secrets.id
   secret_name  = "JOBTOKEN"
-  principal_id = azurerm_user_assigned_identity.container_app.principal_id
-
-  tags = var.tags
+  tags         = var.tags
 }
 
 module "terraform_cloud_token" {
@@ -97,9 +135,7 @@ module "terraform_cloud_token" {
 
   key_vault_id = azurerm_key_vault.secrets.id
   secret_name  = "TERRAFORMCLOUDTOKEN"
-  principal_id = azurerm_user_assigned_identity.container_app.principal_id
-
-  tags = var.tags
+  tags         = var.tags
 }
 
 module "vcs_token" {
@@ -107,7 +143,5 @@ module "vcs_token" {
 
   key_vault_id = azurerm_key_vault.secrets.id
   secret_name  = "VCSTOKEN"
-  principal_id = azurerm_user_assigned_identity.container_app.principal_id
-
-  tags = var.tags
+  tags         = var.tags
 }

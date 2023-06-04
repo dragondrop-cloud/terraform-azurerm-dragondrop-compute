@@ -16,6 +16,11 @@ variable "dragondrop_engine_image" {
   default     = "us-east4-docker.pkg.dev/dragondrop-prod/dragondrop-engine/engine:latest"
 }
 
+variable "user_email_to_access_key_vault" {
+  description = "User email of the entity to be granted read/write permissions to the created key vault."
+  type        = string
+}
+
 variable "resource_group_name" {
   description = "The name of the resource group in which to create the resources"
   type        = string
