@@ -26,8 +26,8 @@ resource "azurerm_container_app" "example" {
 
 
   ingress {
-    allow_insecure_connections = False
-    external_enabled           = True
+    allow_insecure_connections = false
+    external_enabled           = true
     port                       = 443
   }
 

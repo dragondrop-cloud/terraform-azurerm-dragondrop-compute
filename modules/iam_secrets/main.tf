@@ -50,7 +50,7 @@ module "division_cloud_credentials" {
   secret_name  = "DIVISIONCLOUDCREDENTIALS"
   principal_id = azurerm_user_assigned_identity.container_app.principal_id
 
-  tags = tags
+  tags = var.tags
 }
 
 module "infracost_api_token" {
@@ -60,7 +60,7 @@ module "infracost_api_token" {
   secret_name  = "INFRACOSTAPITOKEN"
   principal_id = azurerm_user_assigned_identity.container_app.principal_id
 
-  tags = tags
+  tags = var.tags
 }
 
 module "job_token" {
@@ -70,7 +70,7 @@ module "job_token" {
   secret_name  = "JOBTOKEN"
   principal_id = azurerm_user_assigned_identity.container_app.principal_id
 
-  tags = tags
+  tags = var.tags
 }
 
 module "terraform_cloud_token" {
@@ -80,7 +80,7 @@ module "terraform_cloud_token" {
   secret_name  = "TERRAFORMCLOUDTOKEN"
   principal_id = azurerm_user_assigned_identity.container_app.principal_id
 
-  tags = tags
+  tags = var.tags
 }
 
 module "vcs_token" {
@@ -90,5 +90,5 @@ module "vcs_token" {
   secret_name  = "VCSTOKEN"
   principal_id = azurerm_user_assigned_identity.container_app.principal_id
 
-  tags = tags
+  tags = var.tags
 }
