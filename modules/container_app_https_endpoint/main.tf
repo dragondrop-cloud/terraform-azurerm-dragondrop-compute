@@ -45,7 +45,7 @@ resource "azurerm_container_app" "example" {
     container {
       name   = "dragondrop-https-trigger-container"
       cpu    = 1.0
-      memory = "2.0Gi"
+      memory = "2Gi"
       image  = var.dragondrop_https_trigger_container_image
 
       env {
