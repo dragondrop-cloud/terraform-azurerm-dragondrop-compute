@@ -86,10 +86,14 @@ resource "azurerm_key_vault_access_policy" "terraform_client" {
 }
 
 ## Permissions for terraform client to access the key vault
+data "azuread_user" "example" {
+  user_principal_name = var.user_email_to_access_key_vault
+}
+
 resource "azurerm_key_vault_access_policy" "console_user" {
   key_vault_id = azurerm_key_vault.secrets.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = var.user_email_to_access_key_vault
+  object_id    = data.azuread_user.example.id
 
   key_permissions = [
     "Create",
