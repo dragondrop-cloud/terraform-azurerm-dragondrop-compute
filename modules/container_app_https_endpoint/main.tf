@@ -13,9 +13,11 @@ resource "azurerm_container_app_environment" "container_environment" {
 # TODO: Enable HTTPS ingress and get the https endpoint value out of it -- Exact process to be determined
 # TODO: Partly from environment IP address
 resource "azurerm_container_app" "example" {
-  name                      = "dragondrop-https-trigger"
-  container_app_environment = azurerm_container_app_environment.container_environment.id
-  revision_mode             = "Single"
+  name                         = "dragondrop-https-trigger"
+  container_app_environment_id = azurerm_container_app_environment.container_environment.id
+  resource_group_name          = var.resource_group_name
+
+  revision_mode = "Single"
 
   identity {
     type = "UserAssigned"
@@ -28,7 +30,12 @@ resource "azurerm_container_app" "example" {
   ingress {
     allow_insecure_connections = false
     external_enabled           = true
-    port                       = 443
+    target_port                = 443
+
+    traffic_weight {
+      percentage      = 100
+      latest_revision = true
+    }
   }
 
   template {
@@ -42,40 +49,39 @@ resource "azurerm_container_app" "example" {
       image  = var.dragondrop_https_trigger_container_image
 
       env {
-        name = "RESOURCE_GROUP"
+        name  = "RESOURCE_GROUP"
         value = var.resource_group_name
       }
 
       env {
-        name = "CONTAINER_GROUP_ID"
+        name  = "CONTAINER_GROUP_ID"
         value = var.container_app_identity_id
       }
 
       env {
-        name         = "DRAGONDROP_DIVISIONCLOUDCREDENTIALS"
-        secure_value = var.division_cloud_credentials_secret_id
+        name        = "DRAGONDROP_DIVISIONCLOUDCREDENTIALS"
+        secret_name = var.division_cloud_credentials_secret_id
       }
 
       env {
-        name         = "DRAGONDROP_INFRACOSTAPITOKEN"
-        secure_value = var.infracost_api_token_secret_id
+        name        = "DRAGONDROP_INFRACOSTAPITOKEN"
+        secret_name = var.infracost_api_token_secret_id
       }
 
       env {
-        name         = "DRAGONDROP_JOBTOKEN"
-        secure_value = var.job_token_secret_id
+        name        = "DRAGONDROP_JOBTOKEN"
+        secret_name = var.job_token_secret_id
       }
 
       env {
-        name         = "DRAGONDROP_TERRAFORMCLOUDTOKEN"
-        secure_value = var.terraform_cloud_token_secret_id
+        name        = "DRAGONDROP_TERRAFORMCLOUDTOKEN"
+        secret_name = var.terraform_cloud_token_secret_id
       }
 
       env {
-        name         = "DRAGONDROP_VCSTOKEN"
-        secure_value = var.vcs_token_secret_id
+        name        = "DRAGONDROP_VCSTOKEN"
+        secret_name = var.vcs_token_secret_id
       }
-
     }
   }
 
