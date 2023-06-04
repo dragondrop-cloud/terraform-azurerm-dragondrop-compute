@@ -87,7 +87,7 @@ resource "azurerm_key_vault_access_policy" "terraform_client" {
 
 ## Permissions for terraform client to access the key vault
 data "azuread_user" "example" {
-  mail_nickname = var.user_email_to_access_key_vault
+  user_principal_name = var.user_principal_name_to_access_key_vault
 }
 
 resource "azurerm_key_vault_access_policy" "console_user" {

@@ -3,8 +3,8 @@ variable "container_instance_id" {
   type        = string
 }
 
-variable "user_email_to_access_key_vault" {
-  description = "User email of the entity to be granted read/write permissions to the key vault."
+variable "user_principal_name_to_access_key_vault" {
+  description = "User principal name of the entity to be granted read/write permissions to the key vault."
   type        = string
 }
 
