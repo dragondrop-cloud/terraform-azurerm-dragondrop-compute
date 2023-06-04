@@ -24,11 +24,11 @@ module "container_instance_dragondrop_engine" {
 module "iam_secrets" {
   source = "./modules/iam_secrets"
 
-  user_principal_name_to_access_key_vault = var.user_principal_name_to_access_key_vault
-  container_instance_id          = module.container_instance_dragondrop_engine.container_instance_id
-  resource_group_name            = var.resource_group_name
-  location                       = var.location
-  tags                           = var.tags
+  user_object_id_to_access_key_vault = var.user_object_id_to_access_key_vault
+  container_instance_id              = module.container_instance_dragondrop_engine.container_instance_id
+  resource_group_name                = var.resource_group_name
+  location                           = var.location
+  tags                               = var.tags
 }
 
 module "container_app_https_endpoint" {

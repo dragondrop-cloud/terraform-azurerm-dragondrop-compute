@@ -16,8 +16,8 @@ variable "dragondrop_engine_image" {
   default     = "us-east4-docker.pkg.dev/dragondrop-prod/dragondrop-engine/engine:latest"
 }
 
-variable "user_principal_name_to_access_key_vault" {
-  description = "User principal name of the entity to be granted read/write permissions to the created key vault."
+variable "user_object_id_to_access_key_vault" {
+  description = "User object id of the entity to be granted read/write permissions to the created key vault."
   type        = string
 }
 
