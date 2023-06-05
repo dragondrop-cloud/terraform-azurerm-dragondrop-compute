@@ -42,7 +42,7 @@ resource "azurerm_container_app" "dragondrop_https_trigger" {
   }
 
   secret {
-    name  = "infracost-api-token"
+    name  = "infra-cost-api-token"
     value = "placeholder"
   }
 
