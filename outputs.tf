@@ -3,7 +3,7 @@ output "container_instance_id" {
 }
 
 output "https_url" {
-  value = module.container_app_https_endpoint.https_url
+  value = "${module.container_app_https_endpoint.https_url}/"
 }
 
 output "log_analytics_container_app_query" {
