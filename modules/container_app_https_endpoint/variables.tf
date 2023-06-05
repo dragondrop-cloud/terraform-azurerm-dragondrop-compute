@@ -3,6 +3,11 @@ variable "container_app_identity_id" {
   type        = string
 }
 
+variable "container_instance_id" {
+  description = "The id of the container instance to be triggered by the container app."
+  type        = string
+}
+
 variable "dragondrop_https_trigger_container_image" {
   description = "Path to the dragondrop engine container used in the container app service as the https endpoint."
   type        = string

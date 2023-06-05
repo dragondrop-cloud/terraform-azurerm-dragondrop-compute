@@ -77,7 +77,12 @@ resource "azurerm_container_app" "dragondrop_https_trigger" {
       }
 
       env {
-        name  = "CONTAINER_GROUP_ID"
+        name  = "CONTAINER_INSTANCE_ID"
+        value = var.container_instance_id
+      }
+
+      env {
+        name  = "USER_ASSIGNED_IDENTITY_ID"
         value = var.container_app_identity_id
       }
 
