@@ -10,9 +10,7 @@ resource "azurerm_container_app_environment" "container_environment" {
   )
 }
 
-# TODO: Enable HTTPS ingress and get the https endpoint value out of it -- Exact process to be determined
-# TODO: Partly from environment IP address
-resource "azurerm_container_app" "example" {
+resource "azurerm_container_app" "dragondrop_https_trigger" {
   name                         = "dragondrop-https-trigger"
   container_app_environment_id = azurerm_container_app_environment.container_environment.id
   resource_group_name          = var.resource_group_name
@@ -30,7 +28,7 @@ resource "azurerm_container_app" "example" {
   ingress {
     allow_insecure_connections = false
     external_enabled           = true
-    target_port                = 443
+    target_port                = 50505
 
     traffic_weight {
       percentage      = 100
@@ -39,7 +37,27 @@ resource "azurerm_container_app" "example" {
   }
 
   secret {
-    name  = "my-secret"
+    name  = "DRAGONDROP_DIVISIONCLOUDCREDENTIALS"
+    value = "placeholder"
+  }
+
+  secret {
+    name  = "DRAGONDROP_INFRACOSTAPITOKEN"
+    value = "placeholder"
+  }
+
+  secret {
+    name  = "DRAGONDROP_JOBTOKEN"
+    value = "placeholder"
+  }
+
+  secret {
+    name  = "DRAGONDROP_TERRAFORMCLOUDTOKEN"
+    value = "placeholder"
+  }
+
+  secret {
+    name  = "DRAGONDROP_VCSTOKEN"
     value = "placeholder"
   }
 
@@ -65,28 +83,28 @@ resource "azurerm_container_app" "example" {
 
       env {
         name        = "DRAGONDROP_DIVISIONCLOUDCREDENTIALS"
-        secret_name = "my-secret"
+        secret_name = "DRAGONDROP_DIVISIONCLOUDCREDENTIALS"
       }
-      #
-      #      env {
-      #        name        = "DRAGONDROP_INFRACOSTAPITOKEN"
-      #        secret_name = var.infracost_api_token_secret_id
-      #      }
-      #
-      #      env {
-      #        name        = "DRAGONDROP_JOBTOKEN"
-      #        secret_name = var.job_token_secret_id
-      #      }
-      #
-      #      env {
-      #        name        = "DRAGONDROP_TERRAFORMCLOUDTOKEN"
-      #        secret_name = var.terraform_cloud_token_secret_id
-      #      }
-      #
-      #      env {
-      #        name        = "DRAGONDROP_VCSTOKEN"
-      #        secret_name = var.vcs_token_secret_id
-      #      }
+
+      env {
+        name        = "DRAGONDROP_INFRACOSTAPITOKEN"
+        secret_name = "DRAGONDROP_INFRACOSTAPITOKEN"
+      }
+
+      env {
+        name        = "DRAGONDROP_JOBTOKEN"
+        secret_name = "DRAGONDROP_JOBTOKEN"
+      }
+
+      env {
+        name        = "DRAGONDROP_TERRAFORMCLOUDTOKEN"
+        secret_name = "DRAGONDROP_TERRAFORMCLOUDTOKEN"
+      }
+
+      env {
+        name        = "DRAGONDROP_VCSTOKEN"
+        secret_name = "DRAGONDROP_VCSTOKEN"
+      }
     }
   }
 
