@@ -37,12 +37,6 @@ module "container_app_https_endpoint" {
   log_analytics_workspace_id               = module.log_analytics_workspace.log_analytics_workspace_id
 
   container_app_identity_id            = module.iam_secrets.container_app_identity_id
-  division_cloud_credentials_secret_id = module.iam_secrets.division_cloud_credentials_secret_id
-  infracost_api_token_secret_id        = module.iam_secrets.infracost_api_token_secret_id
-  job_token_secret_id                  = module.iam_secrets.job_token_secret_id
-  terraform_cloud_token_secret_id      = module.iam_secrets.terraform_cloud_token_secret_id
-  vcs_token_secret_id                  = module.iam_secrets.vcs_token_secret_id
-
   resource_group_name = var.resource_group_name
   location            = var.location
   tags                = var.tags
