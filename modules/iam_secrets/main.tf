@@ -30,6 +30,6 @@ resource "azurerm_role_definition" "example" {
 
 resource "azurerm_role_assignment" "container_app" {
   scope              = data.azurerm_subscription.current.id
-  role_definition_id = azurerm_role_definition.example.role_definition_id
+  role_definition_id = azurerm_role_definition.example.role_definition_resource_id
   principal_id       = azurerm_user_assigned_identity.container_app.principal_id
 }
