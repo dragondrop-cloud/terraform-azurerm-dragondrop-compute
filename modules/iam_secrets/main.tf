@@ -30,7 +30,7 @@ resource "azurerm_role_definition" "example" {
 
 resource "azurerm_role_assignment" "container_app" {
   scope              = var.container_instance_id
-  role_definition_id = azurerm_role_definition.example.id
+  role_definition_id = azurerm_role_definition.example.role_definition_id
   principal_id       = azurerm_user_assigned_identity.container_app.principal_id
 }
 
@@ -85,7 +85,7 @@ resource "azurerm_key_vault_access_policy" "terraform_client" {
   ]
 }
 
-## Permissions for terraform client to access the key vault
+## Permissions for a principal account to access the key vault
 resource "azurerm_key_vault_access_policy" "console_user" {
   key_vault_id = azurerm_key_vault.secrets.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
@@ -96,12 +96,14 @@ resource "azurerm_key_vault_access_policy" "console_user" {
     "Get",
     "List",
     "Update",
+    "Delete"
   ]
 
   secret_permissions = [
     "Set",
     "Get",
     "List",
+    "Delete"
   ]
 }
 

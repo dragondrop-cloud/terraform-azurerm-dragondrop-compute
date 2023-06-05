@@ -38,6 +38,11 @@ resource "azurerm_container_app" "example" {
     }
   }
 
+  secret {
+    name  = "my-secret"
+    value = "placeholder"
+  }
+
   template {
     max_replicas = 2
     min_replicas = 0
@@ -60,28 +65,28 @@ resource "azurerm_container_app" "example" {
 
       env {
         name        = "DRAGONDROP_DIVISIONCLOUDCREDENTIALS"
-        secret_name = var.division_cloud_credentials_secret_id
+        secret_name = "my-secret"
       }
-
-      env {
-        name        = "DRAGONDROP_INFRACOSTAPITOKEN"
-        secret_name = var.infracost_api_token_secret_id
-      }
-
-      env {
-        name        = "DRAGONDROP_JOBTOKEN"
-        secret_name = var.job_token_secret_id
-      }
-
-      env {
-        name        = "DRAGONDROP_TERRAFORMCLOUDTOKEN"
-        secret_name = var.terraform_cloud_token_secret_id
-      }
-
-      env {
-        name        = "DRAGONDROP_VCSTOKEN"
-        secret_name = var.vcs_token_secret_id
-      }
+      #
+      #      env {
+      #        name        = "DRAGONDROP_INFRACOSTAPITOKEN"
+      #        secret_name = var.infracost_api_token_secret_id
+      #      }
+      #
+      #      env {
+      #        name        = "DRAGONDROP_JOBTOKEN"
+      #        secret_name = var.job_token_secret_id
+      #      }
+      #
+      #      env {
+      #        name        = "DRAGONDROP_TERRAFORMCLOUDTOKEN"
+      #        secret_name = var.terraform_cloud_token_secret_id
+      #      }
+      #
+      #      env {
+      #        name        = "DRAGONDROP_VCSTOKEN"
+      #        secret_name = var.vcs_token_secret_id
+      #      }
     }
   }
 
