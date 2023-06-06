@@ -1,3 +1,5 @@
+data "azurerm_subscription" "current" {}
+
 resource "azurerm_container_app_environment" "container_environment" {
   name                       = "dragondrop-container-environment"
   location                   = var.location
@@ -77,13 +79,14 @@ resource "azurerm_container_app" "dragondrop_https_trigger" {
       }
 
       env {
-        name  = "CONTAINER_INSTANCE_ID"
-        value = var.container_instance_id
+        name = "CONTAINER_INSTANCE_ID"
+        # Get the last element in the original list post-split
+        value = reverse(split("/", var.container_instance_id))[0]
       }
 
       env {
-        name  = "USER_ASSIGNED_IDENTITY_ID"
-        value = var.container_app_identity_id
+        name  = "SUBSCRIPTION_ID"
+        value = data.azurerm_subscription.current.subscription_id
       }
 
       env {
