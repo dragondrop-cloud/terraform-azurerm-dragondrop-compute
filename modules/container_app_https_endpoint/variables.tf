@@ -13,6 +13,11 @@ variable "container_instance_id" {
   type        = string
 }
 
+variable "dragondrop_api" {
+  description = "The url of the dragondrop api endpoint to which requests from the container are sent."
+  type        = string
+}
+
 variable "dragondrop_https_trigger_container_image" {
   description = "Path to the dragondrop engine container used in the container app service as the https endpoint."
   type        = string

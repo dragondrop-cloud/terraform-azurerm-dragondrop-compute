@@ -33,6 +33,7 @@ module "iam_secrets" {
 module "container_app_https_endpoint" {
   source = "./modules/container_app_https_endpoint"
 
+  dragondrop_api                           = var.dragondrop_api
   dragondrop_https_trigger_container_image = var.dragondrop_https_trigger_container_image
   log_analytics_workspace_id               = module.log_analytics_workspace.log_analytics_workspace_id
 

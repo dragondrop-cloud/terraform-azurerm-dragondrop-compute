@@ -95,6 +95,11 @@ resource "azurerm_container_app" "dragondrop_https_trigger" {
       }
 
       env {
+        name  = "DRAGONDROP_APIPATH"
+        value = var.dragondrop_api
+      }
+
+      env {
         name        = "DRAGONDROP_DIVISIONCLOUDCREDENTIALS"
         secret_name = "division-cloud-credentials"
       }
