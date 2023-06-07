@@ -3,6 +3,11 @@ variable "container_app_identity_id" {
   type        = string
 }
 
+variable "container_app_identity_client_id" {
+  description = "The client id of the identity to assign to the container app service"
+  type        = string
+}
+
 variable "container_instance_id" {
   description = "The id of the container instance to be triggered by the container app."
   type        = string
