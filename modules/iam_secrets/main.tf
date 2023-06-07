@@ -19,7 +19,7 @@ resource "azurerm_role_definition" "example" {
   description = "Custom role for ability to update or create a container instance container group."
 
   permissions {
-    actions     = [
+    actions = [
       "Microsoft.ContainerInstance/containerGroups/read",
       "Microsoft.ContainerInstance/containerGroups/write",
     ]

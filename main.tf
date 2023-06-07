@@ -37,11 +37,11 @@ module "container_app_https_endpoint" {
   log_analytics_workspace_id               = module.log_analytics_workspace.log_analytics_workspace_id
 
   container_app_identity_client_id = module.iam_secrets.container_app_identity_client_id
-  container_app_identity_id = module.iam_secrets.container_app_identity_id
-  container_instance_id     = module.container_instance_dragondrop_engine.container_instance_id
-  resource_group_name       = var.resource_group_name
-  location                  = var.location
-  tags                      = var.tags
+  container_app_identity_id        = module.iam_secrets.container_app_identity_id
+  container_instance_id            = module.container_instance_dragondrop_engine.container_instance_id
+  resource_group_name              = var.resource_group_name
+  location                         = var.location
+  tags                             = var.tags
 
   depends_on = [module.container_instance_dragondrop_engine, module.log_analytics_workspace]
 }

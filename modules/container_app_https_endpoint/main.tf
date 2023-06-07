@@ -90,8 +90,8 @@ resource "azurerm_container_app" "dragondrop_https_trigger" {
       }
 
       env {
-        name = "MANAGED_ID_CLIENT_ID"
-        value = var.container_app_client_id
+        name  = "MANAGED_ID_CLIENT_ID"
+        value = var.container_app_identity_client_id
       }
 
       env {
