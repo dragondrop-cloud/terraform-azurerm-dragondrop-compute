@@ -90,6 +90,11 @@ resource "azurerm_container_app" "dragondrop_https_trigger" {
       }
 
       env {
+        name = "MANAGED_ID_CLIENT_ID"
+        value = var.container_app_identity_id
+      }
+
+      env {
         name        = "DRAGONDROP_DIVISIONCLOUDCREDENTIALS"
         secret_name = "division-cloud-credentials"
       }
