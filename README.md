@@ -42,6 +42,13 @@ The Azure Container Instance hosts dragondrop's container.
 This module creates a new role, "dragondrop-container-instance-update" which has the minimum permissions needed to evoke
 the created Azure Container Instance. This role is given to a new user-assigned identity, "dragondrop-container-app".
 
+## Limitations
+We use Container App secrets at the moment, since currently Terraform does not allow
+for the specification of key-vault managed secrets, as noted in [this issue](https://github.com/hashicorp/terraform-provider-azurerm/issues/21739).
+
+This means, unfortunately, that if you re-apply this module, these Container App secrets will be overwritten with the default
+value of "placeholder".
+
 ## What is dragondrop.cloud?
 [dragondrop.cloud](https://dragondrop.cloud) is a provider of IAC automation solutions that are self-hosted
 within customer's cloud environment. For more information or to schedule a demo, please visit our website.
