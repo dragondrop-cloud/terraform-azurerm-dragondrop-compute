@@ -16,6 +16,12 @@ variable "dragondrop_engine_image" {
   default     = "us-east4-docker.pkg.dev/dragondrop-prod/dragondrop-engine/engine:latest"
 }
 
+variable "create_custom_role_definition" {
+  description = "Whether to create a custom role definition for triggering a container instance within this module. If set set to false, we assume that the dragondrop-container-instance-update role has already been created within your subscription."
+  type        = bool
+  default     = true
+}
+
 variable "resource_group_name" {
   description = "The name of the resource group in which to create the resources"
   type        = string

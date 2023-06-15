@@ -25,6 +25,7 @@ module "iam_secrets" {
   source = "./modules/iam_secrets"
 
   container_instance_id = module.container_instance_dragondrop_engine.container_instance_id
+  create_custom_role    = var.create_custom_role_definition
   resource_group_name   = var.resource_group_name
   location              = var.location
   tags                  = var.tags
