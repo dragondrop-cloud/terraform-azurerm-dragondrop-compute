@@ -3,9 +3,9 @@ variable "container_instance_id" {
   type        = string
 }
 
-variable "create_custom_role" {
-  description = "Whether to create a custom role for the container instance."
-  type        = bool
+variable "custom_role_name" {
+  description = "Name of the custom role."
+  type        = string
 }
 
 variable "resource_group_name" {
